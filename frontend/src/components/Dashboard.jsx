@@ -2,7 +2,7 @@ import React, {useState, useMemo} from "react"
 import {Box, Drawer, List, ListItem, ListItemText, Typography, IconButton, createTheme, ThemeProvider, CssBaseline} from "@mui/material";
 import Brightnes4Icon from '@mui/icons-material/Brightness4';
 import Brightnes7Icon from '@mui/icons-material/Brightness7';
-import ResourceList from "./src/components/ResourceList";
+import ResourceList from "./ResourceList";
 
 export default function Dashboard(){
     const[dark, setDark] = useState(false);
@@ -25,7 +25,7 @@ export default function Dashboard(){
 
         <Box sx = {{flewGrow: 1, p: 3}}>
             <Box sx = {{display: "flex", justifyContent:"space-between", alignItems: "center", mb: 2}}>
-               
+                {/* Toggle funksioni */}
                 <IconButton onClick={()=>setDark(!dark)} color="inherit">
                     {dark? <Brightnes4Icon/>: <Brightnes7Icon/>}
                 </IconButton>
