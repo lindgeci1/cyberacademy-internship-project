@@ -2,12 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path')
 const cors = require('cors');
-const DB_Connection = require('./config/database');
-const testingConnection = require('./routes/testRoutes');
-const resourceRoutes = require('./routes/resourceRoutes');
+const DB_Connection = require('./src/config/database');
+const testingConnection = require('./src/routes/testRoutes');
+const resourceRoutes = require('./src/routes/resourceRoutes');
 const swaggerUI = require("swagger-ui-express");
-const swaggerMain = require("./config/swagger")
-dotenv.config({path:path.resolve(__dirname,'../.env')});
+const swaggerMain = require("./src/config/swagger")
+dotenv.config({path:path.resolve(__dirname,'.env')});
 
 DB_Connection();
 
@@ -20,7 +20,7 @@ app.use(cors());
 app.use('/api/resources', resourceRoutes);
 
 //PER ME E TESTU LIDHJEN ME MONGO
-// app.use('/api', testingConnection);
+app.use('/api', testingConnection);
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerMain))
 const PORT = process.env.PORT || 5000;

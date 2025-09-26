@@ -7,6 +7,8 @@ const {testingController} = require('../controllers/testing_Db_Controller');
  * @swagger
  * /api:
  *   get:
+ *     tags:
+ *       - Database Connection
  *     summary: Database conection
  *     description: Returing database connection status
  *     responses:
