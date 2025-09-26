@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path')
+const cors = require('cors');
 const DB_Connection = require('./config/database');
 const testingConnection = require('./routes/testRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
@@ -13,6 +14,8 @@ DB_Connection();
 
 const app = express();
 app.use(express.json());
+//install cors to let any frontend framework make requests on the backend api
+app.use(cors());
 
 app.use('/api/resources', resourceRoutes);
 
