@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {DataGrid} from "@mui/x-data-grid"
 import ResourceFilter from "./ResourceFilter";
+import Cookies  from "js-cookie";
+import {api} from "../components/apiClient";
 export default function ResourceList(){
 
 
@@ -11,12 +13,10 @@ export default function ResourceList(){
 
     useEffect(()=>{
 
-        const api = import.meta.env.VITE_API_KEY;
         // console.log("Fetching resources from: ", `${api}/resources/getall`);
-        fetch(`${api}/resources/getall`)
-        .then((res)=>res.json())
-        .then((data) =>{
-            const formated  = data.data.map((res, index)=>({
+        api.get("/resources/getall")
+        .then((res) =>{
+            const formated  = res.data.data.map((res, index)=>({
 
                 id: index,
                 title: res.title,
