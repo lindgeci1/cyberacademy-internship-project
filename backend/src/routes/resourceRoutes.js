@@ -14,7 +14,9 @@ const {
  * @swagger
  * /api/resources/getall:
  *   get:
- *     summary: Get ass resources
+ *     tags:
+ *       - Resources
+ *     summary: Get all resources
  *     responses:
  *       200:
  *         description: Resources retrieved successfully
@@ -27,6 +29,8 @@ router.get('/getall', getResources);
  * @swagger
  * /api/resources/getId/{id}:
  *   get:
+ *     tags:
+ *       - Resources
  *     summary: Get a resource  by ID
  *     parameters:
  *       - in: path
@@ -49,6 +53,8 @@ router.get('/getId/:id', getResourceByID);
  * @swagger
  * /api/resources/create:
  *   post:
+ *     tags:
+ *       - Resources
  *     summary: Create a new resource
  *     requestBody:
  *       required: true
@@ -88,6 +94,8 @@ router.post('/create', createResource);
  * @swagger
  * /api/resources/update/{id}:
  *   put:
+ *     tags:
+ *       - Resources
  *     summary: Update a resource  by ID
  *     parameters:
  *       - in: path
@@ -137,6 +145,8 @@ router.put('/update/:id', updateResource);
  * @swagger
  * /api/resources/delete/{id}:
  *   delete:
+ *     tags:
+ *       - Resources
  *     summary: Delete a resource  by ID
  *     parameters:
  *       - in: path

@@ -15,7 +15,7 @@ const theoptions ={
             },
         ],
     },
-    apis:["./routes/*js"]
+    apis:["./src/routes/*js"]
 }
 const swaggerMain = swaggerDoc(theoptions);
 module.exports = swaggerMain;
