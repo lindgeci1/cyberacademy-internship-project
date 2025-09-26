@@ -3,14 +3,21 @@ import {DataGrid} from "@mui/x-data-grid"
 import ResourceFilter from "./ResourceFilter";
 import Cookies  from "js-cookie";
 import {api} from "../components/apiClient";
-import { deleteResource } from "./ResourceDelete";
+//operations
+import { deleteResource } from "../../operations/ResourceDelete";
+import { updateResource } from "../../operations/ResourceUpdate";
+import { createResource } from "../../operations/ResourceCreate";
+//models
+import ResourceEditModal from "../../models/ResourceEditModal";
+import ResourceCreateModel from "../../models/ResourceCreateModel";
 export default function ResourceList(){
 
 
     const[resources, SetResource] = useState([]);
     const[filteredResources, SetFilteredResources] = useState([]);
     const[selectCategory, SetSelectCategory] = useState("");
-
+    const[editResource, setEditResource] = useState(null);
+    const[createopen, setCreateopen] = useState(false);
 
     useEffect(()=>{
 
@@ -57,6 +64,23 @@ export default function ResourceList(){
             :updateResource
         );
     };
+
+    const handleupdateClick = (resources) =>{
+        setEditResource(resources);
+    }
+
+    const handleSave = async(updateData)=>{
+        const   updateResources = await updateResource(resources, editResource.id, updateData);
+        SetResource(updateResources);
+        SetFilteredResources(
+            selectCategory
+            ? updateResource.filter((res)=>res.category===selectCategory)
+            :updateResource
+        );
+        setEditResource(null);
+
+        window.location.reload();
+    }
     const columns =[
 
 
@@ -79,11 +103,22 @@ export default function ResourceList(){
                 </button>
             )
         }
+        ,
+        {
+            field: "update",
+            headerName: "Update",
+            width: 100,
+            renderCell: (params)=>(
+                <button onClick={()=>handleupdateClick(params.row)}>
+                    update
+                </button>
+            )
+        }
     ]
 
     return(
 
-        <div style = {{height: 400 , width: 1500}}>
+        <div style = {{height: 400 , width: 1200}}>
 
                 <h2>Resources</h2> 
 
@@ -92,11 +127,37 @@ export default function ResourceList(){
                 selectCategory={selectCategory}
                 onChange={SetSelectCategory}/>
 
+                <button onClick={()=>setCreateopen(true)} style = {{margin:"10px 0"}}>
+                    Create a new Resource
+                </button>
                 <DataGrid 
                 rows = {filteredResources}
                 columns={columns}
                 pageSize ={5}
                 />
+                {editResource && (
+                    <ResourceEditModal
+                        resource={editResource}
+                        onClose={()=>setEditResource(null)}
+                        onSave={handleSave}
+                        />
+                )}
+                {createopen &&(
+                    <ResourceCreateModel
+                    onClose={()=>setCreateopen(false)}
+                    onSave={async (newData)=>{
+                        const updateResources = await createResource(resources, newData);
+                        SetResource(updateResource);
+                        SetFilteredResources(
+                            selectCategory
+                            ? updateResource.filter((res)=>res.category===selectCategory)
+                            :updateResource
+                        );
+                        setCreateopen(false);
+                        window.location.reload();
+                    }}
+                    />
+                )}
 
         </div>
     )
