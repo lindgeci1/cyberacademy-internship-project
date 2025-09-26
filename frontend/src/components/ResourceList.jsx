@@ -3,6 +3,7 @@ import {DataGrid} from "@mui/x-data-grid"
 import ResourceFilter from "./ResourceFilter";
 import Cookies  from "js-cookie";
 import {api} from "../components/apiClient";
+import { deleteResource } from "./ResourceDelete";
 export default function ResourceList(){
 
 
@@ -18,7 +19,7 @@ export default function ResourceList(){
         .then((res) =>{
             const formated  = res.data.data.map((res, index)=>({
 
-                id: index,
+                id: res._id,
                 title: res.title,
                 description: res.description,
                 category: res.category,
@@ -47,11 +48,20 @@ export default function ResourceList(){
 
     const categories = Array.from(new Set(resources.map((res)=>res.category)));
 
+    const handleDelete = async (id)=>{
+        const updateResource = await deleteResource(resources, id);
+        SetResource(updateResource);
+        SetFilteredResources(
+            selectCategory
+            ? updateResource.filter((res)=>res.category===selectCategory)
+            :updateResource
+        );
+    };
     const columns =[
 
 
         {field: "title", headerName: "Title", flex: 1},
-        {field: "description", headerName: "Description", flex: 1},
+        {field: "description", headerName: "Description", flex: 2},
         {field: "category", headerName: "Category", flex: 1},
         {field: "link", headerName: "Link", flex: 1,
              renderCell: (params) =>(
@@ -59,12 +69,21 @@ export default function ResourceList(){
                     {params.value}
                 </a>
              )
+        },{
+            field: "delete",
+            headerName: "Delete",
+            width: 100,
+            renderCell: (params)=>(
+                <button onClick={()=>handleDelete(params.row.id)}>
+                    Delete
+                </button>
+            )
         }
     ]
 
     return(
 
-        <div style = {{height: 400 , width: 1000}}>
+        <div style = {{height: 400 , width: 1500}}>
 
                 <h2>Resources</h2> 
 
