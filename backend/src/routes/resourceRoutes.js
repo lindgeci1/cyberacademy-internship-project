@@ -8,7 +8,7 @@ const {
     deleteResources
 
 } = require('../controllers/resourcesController');
-
+const authenticate = require('../config/authmiddleware');
 
 /**
  * @swagger
@@ -23,7 +23,7 @@ const {
  *       500:
  *         description: Server error
  */
-router.get('/getall', getResources);
+router.get('/getall', authenticate, getResources);
 
 /**
  * @swagger
@@ -47,7 +47,7 @@ router.get('/getall', getResources);
  *       500:
  *         description: Server error
  */
-router.get('/getId/:id', getResourceByID);
+router.get('/getId/:id',authenticate, getResourceByID);
 
 /**
  * @swagger
@@ -88,7 +88,7 @@ router.get('/getId/:id', getResourceByID);
  *       500:
  *         description: Server error
  */
-router.post('/create', createResource);
+router.post('/create', authenticate, createResource);
 
 /**
  * @swagger
@@ -135,7 +135,7 @@ router.post('/create', createResource);
  *         description: Server error
  */
 
-router.put('/update/:id', updateResource);
+router.put('/update/:id',authenticate,  updateResource);
 
 
 
@@ -163,6 +163,6 @@ router.put('/update/:id', updateResource);
  *       500:
  *         description: Server error
  */
-router.delete('/delete/:id', deleteResources);
+router.delete('/delete/:id',authenticate,  deleteResources);
 
 module.exports = router;

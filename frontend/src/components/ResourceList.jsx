@@ -53,7 +53,13 @@ export default function ResourceList(){
         {field: "title", headerName: "Title", flex: 1},
         {field: "description", headerName: "Description", flex: 1},
         {field: "category", headerName: "Category", flex: 1},
-        {field: "link", headerName: "Link", flex: 1}
+        {field: "link", headerName: "Link", flex: 1,
+             renderCell: (params) =>(
+                <a href={params.value} target = "_blank" rel = "noopener noreferrer">
+                    {params.value}
+                </a>
+             )
+        }
     ]
 
     return(
