@@ -20,13 +20,15 @@ export default function Login({onLogin}){
             onLogin();
         }
         catch(err){
-            console.error(err.mesage);
-            alert(err.mesage);
+            console.error(err.message);
+            alert(err.message);
         }
     }
 
     return(
-        <div className="min-h-screen flex justify-center items-center bg-gray-100">
+        <div style={{width: "100vw",height:"100vh", display:"flex",flexDirection: "column", justifyContent: "center", alignItems:"center"}}>
+
+            <h2 className="text-2xl mb-6">Please login here</h2>
                 <button
                 onClick={handleLogin}
                 className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg"
