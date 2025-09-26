@@ -1,8 +1,12 @@
+import { useState } from 'react'
+import Cookis from "js-cookie";
 import Dashboard from './components/Dashboard'
-import './App.css'
-
+import Login from './components/Login'
 export default function App() {
-  return  <Dashboard/>
+
+  const [loggedIn, setLoggedIn] = useState(!!Cookis.get("token"));
+
+  return loggedIn? <Dashboard/> : <Login onLogin={()=>setLoggedIn(true)}/>
   
 }
 

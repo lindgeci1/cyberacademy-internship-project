@@ -16,7 +16,10 @@ DB_Connection();
 const app = express();
 app.use(express.json());
 //install cors to let any frontend framework make requests on the backend api
-app.use(cors());
+app.use(cors({
+    origin:"http://localhost:5173",
+    credentials: true
+}));
 
 app.use('/api/resources', resourceRoutes);
 app.use('/api', loginConnection);
