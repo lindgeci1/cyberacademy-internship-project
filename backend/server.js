@@ -4,6 +4,7 @@ const path = require('path')
 const cors = require('cors');
 const DB_Connection = require('./src/config/database');
 const testingConnection = require('./src/routes/testRoutes');
+const loginConnection = require('./src/routes/loginRoutes');
 const resourceRoutes = require('./src/routes/resourceRoutes');
 const swaggerUI = require("swagger-ui-express");
 const swaggerMain = require("./src/config/swagger")
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/resources', resourceRoutes);
+app.use('/api', loginConnection);
 
 //PER ME E TESTU LIDHJEN ME MONGO
 app.use('/api', testingConnection);
